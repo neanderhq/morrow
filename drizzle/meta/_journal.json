@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1794607352167,
+      "tag": "0000_violet_mother_askani",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795017971930,
+      "tag": "0001_phase2_recruiting",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795024051285,
+      "tag": "0002_phase3_candidate_pipeline",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1795031796174,
+      "tag": "0003_invitation_token_encryption",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1795200539091,
+      "tag": "0004_reported_regressions",
+      "breakpoints": true
+    }
+  ]
+}

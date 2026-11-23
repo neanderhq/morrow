@@ -1,0 +1,82 @@
+{
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "name": "tablet",
+      "width": 820,
+      "height": 900
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "screens": [
+    "framework-home",
+    "framework",
+    "framework-people",
+    "framework-tasks",
+    "framework-tasks-assistant",
+    "framework-notes",
+    "framework-users",
+    "framework-import",
+    "framework-settings",
+    "controls",
+    "framework-workflow-editor",
+    "framework-report-editor",
+    "framework-note-detail",
+    "framework-workflow-start"
+  ],
+  "checks": [
+    "No pack CSS leaks into Neander catalog chrome",
+    "Published screens use the same application blocks and styles installed for customers",
+    "Only model-declared navigation, modules, tabs, pages, and actions render",
+    "The initial full app uses the framework shell without an unrequested external header, count strip, search, or filter bar; collection controls remain inside their shared toolbar and customer CSS does not hide that toolbar",
+    "Entity inventories, directories, and registries use the shared collection and overlay record-detail flow rather than page-local table or split-view recreations",
+    "Closing record details restores the collection's full width; opening details overlays without resizing the table or causing page-level horizontal overflow",
+    "Dashboard metrics, sample badges, and overview chrome do not render unless requested by the customer",
+    "Controls and landmarks expose accessible names and keyboard behavior",
+    "Long and multiline content does not cause page overflow or clipped non-scrollable controls",
+    "Loading, empty, error, disabled, focus, and reduced-motion states use the shared framework",
+    "Tables collapse into mobile cards and intentional data scrollers remain reachable",
+    "No third-party logos or sample personal data ship in generated customer output",
+    "Workflow graphs support node and group dragging, explicit branch connections, reconnect/delete, pan/pinch/zoom, undo/redo, required inputs, scratch/templates, settings and host-confirmed save/publish/Live",
+    "Reports render host-provided aggregate values, retain failed preview requests, and expose contributing data",
+    "Structured notes open as a dedicated page, preserve failed saves, and confirm discard and deletion",
+    "Optional editors remain absent unless explicitly composed into the requested model"
+  ],
+  "certification": "Data Workspace Framework reference pilot; CRM is one optional scope and customer application data and business outcomes remain outside the pack",
+  "scope_examples": [
+    {
+      "brief": "Build a CRM",
+      "surfaces": [
+        "application_shell",
+        "navigation",
+        "primary_collection",
+        "record_page"
+      ]
+    },
+    {
+      "brief": "Build a responsive equipment inventory workspace for a film production company with searchable and filterable assets plus record details",
+      "surfaces": [
+        "application_shell",
+        "navigation",
+        "asset_collection",
+        "asset_detail_drawer"
+      ]
+    },
+    {
+      "brief": "Build a content inventory with a dense table and inline editing",
+      "surfaces": [
+        "application_shell",
+        "navigation",
+        "content_collection"
+      ]
+    }
+  ]
+}

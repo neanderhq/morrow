@@ -1,0 +1,338 @@
+{
+  "schema_version": 1,
+  "id": "attio",
+  "version": "2.0.0",
+  "name": "Data Workspace Framework",
+  "status": "reference-pilot",
+  "adapter": "react",
+  "application_contract": {
+    "required_layout_import": "AttioFramework"
+  },
+  "purpose": "A dense, calm workspace for data-heavy products with collections, configurable tables, record detail pages, contextual actions and optional boards. CRM is one preset, not the pack's required product scope.",
+  "select_for": [
+    "data-heavy workspace apps with a compact rail, dense table and contextual record detail",
+    "asset registries, content inventories, research directories and operational catalogs when the requested interaction pattern fits",
+    "CRM or any relationship tracker, whether or not the customer says CRM",
+    "customers, clients, contacts, companies or accounts with details and history",
+    "leads, deals, opportunities or a sales pipeline",
+    "candidates and recruiting pipelines",
+    "investors, donors, members, partners, vendors or suppliers",
+    "logging calls, emails, meetings and notes against a record",
+    "follow-ups, renewals, stages or scoring for those records"
+  ],
+  "avoid_for": [
+    "calendar-first booking flows without record collections",
+    "message delivery or campaign editing without collection and record interactions",
+    "media capture and playback without a data workspace",
+    "an established product design the customer asked to preserve"
+  ],
+  "routing": {
+    "primary_terms": [
+      "crm",
+      "customer relationship",
+      "relationship strength",
+      "relationship management",
+      "deal pipeline",
+      "sales pipeline",
+      "account manager",
+      "account management",
+      "customer management",
+      "contact management",
+      "contact database",
+      "sales workspace",
+      "customer record",
+      "customer records",
+      "track customers",
+      "customer tracker",
+      "customer tracking",
+      "track clients",
+      "client tracker",
+      "client tracking",
+      "asset registry",
+      "content inventory",
+      "inventory management workspace",
+      "inventory workspace",
+      "research directory",
+      "operations catalog",
+      "data workspace",
+      "records database",
+      "record workspace",
+      "records workspace"
+    ],
+    "workflow_terms": [
+      "asset directory",
+      "inventory management",
+      "resource directory",
+      "relationship database",
+      "operations database",
+      "sales operations",
+      "company directory",
+      "contact directory",
+      "client directory",
+      "partner directory",
+      "vendor directory",
+      "pipeline board",
+      "issue tracker",
+      "issue tracking",
+      "project management",
+      "support ticket",
+      "customer support"
+    ],
+    "visual_terms": [
+      "record detail page",
+      "record detail view",
+      "record detail drawer",
+      "filterable table",
+      "table with search and filters",
+      "sortable table",
+      "compact left rail",
+      "compact left sidebar",
+      "dense record table",
+      "dense records table",
+      "compact toolbar",
+      "inline editing",
+      "configurable columns",
+      "right-side detail drawer",
+      "right-side drawer",
+      "quiet surfaces",
+      "fine dividers"
+    ],
+    "minimum_visual_matches": 2,
+    "exclude_terms": []
+  },
+  "resources": {
+    "tokens": "tokens.json",
+    "skill": "SKILL.md",
+    "foundation_contract": "foundation.json",
+    "patterns": [
+      "patterns/navigation.md",
+      "patterns/layouts.md",
+      "patterns/interactions.md",
+      "patterns/states.md"
+    ],
+    "react_entry": "components/react/PreviewShadcn.tsx",
+    "react_styles": "components/react/attio.css",
+    "react_readme": "components/react/README.md",
+    "routing_evals": "evals/routing.json",
+    "ui_evals": "evals/scenarios.json",
+    "fidelity_audit": "evals/fidelity.md",
+    "quality_evidence": "evals/quality.json",
+    "react_token_styles": "components/react/attio-tokens.css",
+    "react_blocks": [
+      "components/react/AttioBlocks.tsx",
+      "components/react/AttioCrmBlocks.tsx",
+      "components/react/AttioConnected.tsx",
+      "components/react/AttioStates.tsx",
+      "components/react/AttioIcon.tsx",
+      "components/react/AttioKanban.tsx",
+      "components/react/AttioRecordPage.tsx",
+      "components/react/AttioLayouts.tsx",
+      "components/react/AttioWorkspaceRail.tsx",
+      "components/react/attio-blocks.css",
+      "components/react/attio-layouts.css",
+      "components/react/attio-crm-blocks.css",
+      "components/react/attio-kanban.css",
+      "components/react/attio-record-page.css",
+      "components/react/attio-states.css",
+      "components/react/AttioFramework.tsx",
+      "components/react/attio-framework.css",
+      "components/react/AttioHome.tsx",
+      "components/react/attio-home.css",
+      "components/react/AttioTaskAssistant.tsx",
+      "components/react/attio-task-assistant.css",
+      "components/react/AttioEditor.tsx",
+      "components/react/attio-editors.css",
+      "components/react/AttioWorkflowEditor.tsx",
+      "components/react/AttioReportEditor.tsx",
+      "components/react/AttioNoteDetail.tsx",
+      "components/react/AttioWorkflowGraph.ts",
+      "components/react/AttioWorkflowCanvas.tsx",
+      "components/react/AttioWorkflowPalette.tsx",
+      "components/react/AttioWorkflowFields.tsx",
+      "components/react/AttioWorkflowStart.tsx",
+      "components/react/attio-workflow-graph.css",
+      "components/react/PreviewShadcn.tsx",
+      "components/react/AttioFrameworkDemo.tsx",
+      "components/react/AttioEditorPreview.tsx",
+      "components/react/AttioRebuildPreview.tsx"
+    ],
+    "application_blocks": [
+      "components/react/AttioBlocks.tsx",
+      "components/react/AttioCrmBlocks.tsx",
+      "components/react/AttioConnected.tsx",
+      "components/react/AttioStates.tsx",
+      "components/react/AttioIcon.tsx",
+      "components/react/AttioKanban.tsx",
+      "components/react/AttioRecordPage.tsx",
+      "components/react/AttioLayouts.tsx",
+      "components/react/AttioWorkspaceRail.tsx",
+      "components/react/attio-blocks.css",
+      "components/react/attio-layouts.css",
+      "components/react/attio-crm-blocks.css",
+      "components/react/attio-kanban.css",
+      "components/react/attio-record-page.css",
+      "components/react/attio-states.css",
+      "components/react/AttioFramework.tsx",
+      "components/react/attio-framework.css",
+      "components/react/AttioHome.tsx",
+      "components/react/attio-home.css",
+      "components/react/AttioTaskAssistant.tsx",
+      "components/react/attio-task-assistant.css",
+      "components/react/AttioEditor.tsx",
+      "components/react/attio-editors.css",
+      "components/react/AttioWorkflowEditor.tsx",
+      "components/react/AttioReportEditor.tsx",
+      "components/react/AttioNoteDetail.tsx",
+      "components/react/AttioWorkflowGraph.ts",
+      "components/react/AttioWorkflowCanvas.tsx",
+      "components/react/AttioWorkflowPalette.tsx",
+      "components/react/AttioWorkflowFields.tsx",
+      "components/react/AttioWorkflowStart.tsx",
+      "components/react/attio-workflow-graph.css"
+    ]
+  },
+  "preview_screens": [
+    {
+      "id": "framework-home",
+      "label": "Data Workspace \u00b7 Home",
+      "theme": "light",
+      "variant": "optional home composition",
+      "reference": "home-live.png"
+    },
+    {
+      "id": "framework",
+      "label": "Data Workspace \u00b7 Companies",
+      "theme": "light",
+      "variant": "navigable pack-owned workspace",
+      "reference": "companies-live.png"
+    },
+    {
+      "id": "framework-people",
+      "label": "Data Workspace \u00b7 People",
+      "theme": "light",
+      "variant": "navigable pack-owned workspace",
+      "reference": "people-live.png"
+    },
+    {
+      "id": "framework-tasks",
+      "label": "Data Workspace \u00b7 Tasks",
+      "theme": "light",
+      "variant": "navigable pack-owned workspace",
+      "reference": "tasks-live.png"
+    },
+    {
+      "id": "framework-tasks-assistant",
+      "label": "Data Workspace \u00b7 Tasks with companion",
+      "theme": "light",
+      "variant": "optional contextual task panel",
+      "reference": "tasks-assistant-live.png"
+    },
+    {
+      "id": "framework-notes",
+      "label": "Data Workspace \u00b7 Notes",
+      "theme": "light",
+      "variant": "navigable pack-owned workspace",
+      "reference": "notes-live.png"
+    },
+    {
+      "id": "framework-users",
+      "label": "Data Workspace \u00b7 Empty",
+      "theme": "light",
+      "variant": "navigable pack-owned workspace",
+      "reference": "users-empty-live.png"
+    },
+    {
+      "id": "framework-import",
+      "label": "Data Workspace \u00b7 Import",
+      "theme": "light",
+      "variant": "navigable pack-owned workspace",
+      "reference": "import-live.png"
+    },
+    {
+      "id": "framework-settings",
+      "label": "Data Workspace \u00b7 Settings",
+      "theme": "light",
+      "variant": "navigable pack-owned workspace",
+      "reference": "settings-live.png"
+    },
+    {
+      "id": "framework-workflow-editor",
+      "label": "Data Workspace \u00b7 Workflow editor",
+      "theme": "light",
+      "variant": "optional draggable workflow graph",
+      "reference": "workflow-graph-live.png"
+    },
+    {
+      "id": "framework-report-editor",
+      "label": "Data Workspace \u00b7 Report editor",
+      "theme": "light",
+      "variant": "optional canonical editor",
+      "reference": "report-editor-mobbin.png"
+    },
+    {
+      "id": "framework-note-detail",
+      "label": "Data Workspace \u00b7 Note detail",
+      "theme": "light",
+      "variant": "optional canonical editor",
+      "reference": "note-detail-mobbin.png"
+    },
+    {
+      "id": "framework-workflow-start",
+      "label": "Data Workspace \u00b7 Workflow start",
+      "theme": "light",
+      "variant": "optional blank graph entry",
+      "reference": "workflow-start-live.png"
+    },
+    {
+      "id": "framework-inventory",
+      "label": "Data Workspace \u00b7 Inventory",
+      "theme": "light",
+      "variant": "non-CRM foundation composition",
+      "reference": "companies-live.png"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://attio.com/",
+      "role": "official product overview",
+      "observed_at": "2026-10-21"
+    },
+    {
+      "url": "https://attio.com/help/academy",
+      "role": "official product behavior",
+      "observed_at": "2026-10-21"
+    },
+    {
+      "url": "https://docs.attio.com/docs/overview",
+      "role": "official data and app model",
+      "observed_at": "2026-10-21"
+    },
+    {
+      "url": "https://dribbble.com/attio",
+      "role": "Attio-published visual references",
+      "observed_at": "2026-10-21"
+    },
+    {
+      "url": "https://mobbin.com/screens/fe89f86e-37e2-4894-9e17-5b1f9486c3ef",
+      "role": "workflow canvas and inspector reference",
+      "observed_at": "2026-10-27"
+    },
+    {
+      "url": "https://mobbin.com/screens/ff2aaeab-9fa1-4b10-989e-147169c51741",
+      "role": "report editor reference",
+      "observed_at": "2026-10-27"
+    },
+    {
+      "url": "https://mobbin.com/screens/f25b30c3-4a40-47ef-91ab-34ebc996b821",
+      "role": "rich note content reference",
+      "observed_at": "2026-10-27"
+    }
+  ],
+  "reference_note": "Legacy 1.1.0 screenshots inform layout only. Rebuilt controls and appearance follow shadcn and customer project tokens; this is not a pixel-fidelity or production-readiness claim.",
+  "css_prefix": "at",
+  "foundation": {
+    "id": "shadcn",
+    "version": "1.0.0"
+  },
+  "preview_runtime": "shadcn"
+}
