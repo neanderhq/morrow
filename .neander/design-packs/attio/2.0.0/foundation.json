@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "root_class": "at-pack",
+  "shared_components": {
+    "buttons": [
+      "AttioButton"
+    ],
+    "forms": [
+      "AttioField",
+      "AttioInput",
+      "AttioTextarea",
+      "AttioSelect",
+      "AttioCheckbox",
+      "AttioRadioGroup",
+      "AttioSwitch",
+      "AttioFormGrid"
+    ],
+    "navigation": [
+      "AttioWorkspaceRail",
+      "AttioNavItem",
+      "AttioTabs",
+      "AttioMenu"
+    ],
+    "overlays": [
+      "AttioModal",
+      "AttioMenu",
+      "AttioTooltip",
+      "shared Popover for workflow block choices"
+    ],
+    "data_display": [
+      "AttioCollectionToolbar",
+      "AttioFilterToolbar",
+      "AttioDataTable",
+      "AttioKanbanBoard",
+      "AttioRecordPage"
+    ],
+    "feedback": [
+      "AttioBadge",
+      "AttioNotice",
+      "AttioLoading",
+      "AttioEmpty",
+      "AttioError"
+    ],
+    "page_layout": [
+      "AttioPage",
+      "AttioSection",
+      "AttioCard",
+      "AttioStack",
+      "AttioInline",
+      "AttioGrid",
+      "AttioStats",
+      "AttioStat",
+      "AttioList"
+    ]
+  },
+  "geometry": {
+    "body_font_px": 14,
+    "control_font_px": 14,
+    "small_font_px": 12,
+    "control_height_px": 32,
+    "icon_size_px": 16,
+    "navigation_icon_box_px": 18,
+    "badge_height_px": 18,
+    "table_row_px": 40,
+    "border_px": 1,
+    "control_radius_px": 8,
+    "card_radius_px": 12,
+    "modal_radius_px": 16,
+    "motion_hover_ms": 120,
+    "motion_panel_ms": 180
+  },
+  "css_variables": {
+    "font": [
+      "--at-font-family",
+      "--at-font-body",
+      "--at-font-small",
+      "--at-font-title",
+      "--at-line-height"
+    ],
+    "controls": [
+      "--at-control-height",
+      "--at-control-font",
+      "--at-control-icon",
+      "--at-control-badge-height",
+      "--at-control-border-width"
+    ],
+    "layout": [
+      "--at-layout-sidebar",
+      "--at-layout-topbar",
+      "--at-layout-toolbar",
+      "--at-layout-table-row",
+      "--at-layout-panel",
+      "--at-layout-content-max"
+    ],
+    "spacing": [
+      "--at-space-1",
+      "--at-space-2",
+      "--at-space-3",
+      "--at-space-4",
+      "--at-space-5",
+      "--at-space-6",
+      "--at-space-8"
+    ],
+    "radius": [
+      "--at-radius-control",
+      "--at-radius-card",
+      "--at-radius-modal",
+      "--at-radius-pill"
+    ],
+    "motion": [
+      "--at-motion-hover",
+      "--at-motion-panel"
+    ]
+  },
+  "composition_rules": [
+    "Mount AttioFramework as the visible application shell.",
+    "Do not add an overview, dashboard, or home page unless the customer asks for one.",
+    "Use shared collection, table, kanban, record page, form, overlay, and state components.",
+    "Buttons keep their natural width; group them with AttioInline. Do not stretch a button across a card or page.",
+    "Put rich content in declared full-width sections or tabs and keep metadata scalar.",
+    "Keep one type scale, control geometry, icon system, radius scale, and motion system across new widgets.",
+    "Compose standard controls from the installed project shadcn primitives.",
+    "Read project-owned CSS and components.json; keep its palette, typography, and legitimate extensions.",
+    "Use root .dark for the project theme; the pack does not install a competing palette."
+  ],
+  "evidence": "Shared shadcn foundation composition; reference pilot awaiting generated-app validation.",
+  "foundation": {
+    "id": "shadcn",
+    "version": "1.0.0"
+  }
+}

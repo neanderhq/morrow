@@ -1,0 +1,27 @@
+/* Context layout only. Interactive controls come from the project foundation. */
+.at-block-search{position:relative;min-width:0}
+.at-block-search>svg{position:absolute;left:var(--at-space-3);top:50%;transform:translateY(-50%);color:var(--muted-foreground);pointer-events:none}
+.at-block-search>.at-block-input{padding-left:var(--at-space-8)}
+.at-block-field{min-width:0}
+.at-block-modal__head{display:flex;flex-direction:row;justify-content:space-between;align-items:center;text-align:left}
+.at-block-modal__footer{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:var(--at-space-2)}
+.at-foundation-dialog{max-height:calc(100dvh - 2rem);overflow:auto}
+.at-nav-row { width: 100%; border: 0; background: transparent; font: inherit; text-align: left; cursor: pointer; }
+.at-nav-row__label { display: flex; min-width: 0; flex: 1; align-items: center; gap: 8px; line-height: 20px; white-space: nowrap; }
+.at-nav-row__object-icon { display: inline-grid; place-items: center; width: var(--at-control-badge-height); height: var(--at-control-badge-height); flex: 0 0 var(--at-control-badge-height); border-radius: 5px; color: var(--background); }
+.at-nav-row__object-icon--blue { background:var(--muted); }
+.at-nav-row__object-icon--cyan { background:var(--muted); }
+.at-nav-row__object-icon--orange { background:var(--muted); }
+.at-nav-row__object-icon--purple { background:var(--muted); }
+.at-nav-row__object-icon > svg { color: inherit; }
+.at-nav-row__badge { display: inline-grid; place-items: center; align-self: center; min-width: var(--at-control-badge-height); height: var(--at-control-badge-height); margin-left: auto; padding: 0 5px; border-radius: var(--at-radius-pill); background: var(--at-accent); color: var(--background); font-size: 11px; font-variant-numeric: tabular-nums; line-height: 1; }
+.at-block-header { min-width: 0; }
+.at-block-header__actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+.at-block-tabs{margin:var(--at-space-2) var(--at-space-4);width:fit-content}
+
+.at-block-check,.at-block-switch{display:flex;align-items:center;gap:var(--at-space-2)}
+.at-block-switch{justify-content:space-between}
+.at-block-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--at-space-4);min-width:0}
+.at-block-form-grid>*{min-width:0}
+@media(max-width:600px){.at-block-form-grid{grid-template-columns:1fr}}

@@ -1,0 +1,45 @@
+.at-pack .at-collection-board-shell{min-width:0;min-height:0;flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--background)}
+.at-pack .at-collection-board{display:flex;gap:10px;min-width:0;min-height:0;flex:1;padding:12px;overflow:auto;scroll-snap-type:x proximity;scroll-padding-inline:12px;background:var(--background)}
+.at-pack .at-collection-board__column{display:flex;width:286px;min-width:286px;min-height:180px;flex-direction:column;scroll-snap-align:start;border-radius:12px;background:var(--muted)}
+.at-pack .at-collection-board__column>header{display:flex;align-items:center;gap:8px;min-height:48px;padding:0 12px;border-bottom:1px solid var(--border)}
+.at-pack .at-collection-board__column>header strong{font-size:var(--at-control-font);font-weight:600}
+.at-pack .at-collection-board__column>header .at-block-button{width:26px;height:26px;padding:0}
+.at-pack .at-collection-board__column>header .at-block-button>span{display:none}
+.at-pack .at-collection-board__dot{width:10px;height:10px;flex:0 0 10px;border-radius:50%;background:var(--at-stage-color)}
+.at-pack .at-collection-board__cards{display:grid;align-content:start;gap:8px;padding:9px}
+.at-pack .at-collection-card{position:relative;padding:11px;border:1px solid var(--border);border-radius:10px;background:var(--background);box-shadow:0 1px 2px color-mix(in srgb, var(--foreground) 12%, transparent)}
+.at-pack .at-collection-card:focus-within{z-index:2}
+.at-pack .at-collection-card__title{display:flex;align-items:center;gap:8px;min-width:0}
+.at-pack .at-collection-card__title>span{display:inline-grid;place-items:center;width:22px;height:22px;flex:0 0 22px;border-radius:6px;background:var(--muted);color:var(--muted-foreground)}
+.at-pack .at-collection-card__title>button{min-width:0;padding:0;border:0;background:transparent;color:var(--muted-foreground);font:inherit;font-size:var(--at-control-font);font-weight:600;overflow:hidden;text-decoration:underline;text-overflow:ellipsis;white-space:nowrap}
+.at-pack .at-collection-card__actions{display:flex;gap:2px;margin-left:auto;opacity:0;transform:translateY(2px)}
+.at-pack .at-collection-card__actions button{display:inline-grid;place-items:center;width:25px;height:25px;padding:0;border:0;border-radius:6px;background:transparent;color:var(--muted-foreground)}
+.at-pack .at-collection-card__actions button:hover,.at-pack .at-collection-card__actions button:focus-visible{background:var(--at-hover);color:var(--at-text)}
+.at-pack .at-collection-card:hover .at-collection-card__actions,.at-pack .at-collection-card:focus-within .at-collection-card__actions{opacity:1;transform:none}
+.at-pack .at-collection-card dl{display:grid;gap:7px;margin:11px 0 0}
+.at-pack .at-collection-card dl>div{display:grid;grid-template-columns:88px minmax(0,1fr);gap:7px;font-size:12px;line-height:17px}
+.at-pack .at-collection-card dt{color:var(--muted-foreground);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.at-pack .at-collection-card dd{min-width:0;margin:0;color:var(--muted-foreground);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.at-pack .at-collection-card__move{display:grid;grid-template-columns:42px minmax(0,1fr);align-items:center;gap:8px;margin-top:10px;padding-top:9px;border-top:1px solid var(--border);color:var(--muted-foreground);font-size:11px}
+.at-pack .at-collection-card__stage-select{min-width:0}
+.at-pack .at-collection-card__stage-select .at-block-select__trigger{height:28px;padding:0 8px;border-color:var(--border);border-radius:7px;background:var(--background);color:var(--muted-foreground);font-size:12px;box-shadow:0 1px 2px color-mix(in srgb, var(--foreground) 12%, transparent)}
+.at-pack .at-collection-card__stage-select .at-block-select__trigger:hover,.at-pack .at-collection-card__stage-select .at-block-select__trigger[aria-expanded="true"]{border-color:var(--border);background:var(--muted)}
+.at-pack .at-collection-card__stage-select .at-block-select__menu{right:0;left:auto;width:100%;max-width:none;padding:4px;border-radius:8px}
+.at-pack .at-collection-card__stage-select .at-block-select__menu button{min-height:30px;padding:5px 8px;font-size:12px}
+.at-pack .at-collection-board__new{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:34px;border:1px dashed var(--border);border-radius:8px;background:transparent;color:var(--muted-foreground);font:inherit;font-size:12px}
+.at-pack .at-collection-board__new:hover{background:var(--background);color:var(--muted-foreground)}
+.at-pack .at-framework__layout-switcher{display:inline-flex;padding:2px;border-radius:8px;background:var(--muted)}
+.at-pack .at-framework__layout-switcher button{display:inline-grid;place-items:center;width:28px;height:27px;padding:0;border:0;border-radius:6px;background:transparent;color:var(--muted-foreground)}
+.at-pack .at-framework__layout-switcher button.is-active{background:var(--background);color:var(--muted-foreground);box-shadow:0 1px 3px color-mix(in srgb, var(--foreground) 12%, transparent)}
+.at-pack .at-collection-card[data-draggable]{cursor:grab;touch-action:auto}
+.at-pack .at-collection-card__title>strong{min-width:0;color:var(--muted-foreground);font-size:var(--at-control-font);font-weight:600;overflow:hidden;text-decoration:underline;text-overflow:ellipsis;white-space:nowrap}
+.at-pack .at-collection-board.is-dragging{cursor:grabbing;user-select:none}
+.at-pack .at-collection-board__column.is-drop-target{background:var(--muted);box-shadow:inset 0 0 0 1px var(--muted-foreground)}
+.at-pack .at-collection-board__slot{height:var(--at-slot-height);border:1px dashed var(--border);border-radius:10px;background:var(--muted)}
+.at-pack .at-collection-card--floating{position:fixed;z-index:80;margin:0;pointer-events:none;cursor:grabbing;box-shadow:0 14px 34px color-mix(in srgb, var(--foreground) 12%, transparent);transform:rotate(1.5deg) scale(1.02)}
+@media(prefers-reduced-motion:no-preference){.at-pack .at-collection-board__slot{animation:at-slot-open 160ms cubic-bezier(.2,.8,.2,1) both}.at-pack .at-collection-board__column{transition:background 120ms ease,box-shadow 120ms ease}.at-pack .at-collection-card--floating.is-settling{transition:left 170ms cubic-bezier(.2,.8,.2,1),top 170ms cubic-bezier(.2,.8,.2,1),transform 170ms ease,box-shadow 170ms ease;transform:none;box-shadow:0 1px 2px color-mix(in srgb, var(--foreground) 12%, transparent)}}
+@keyframes at-slot-open{from{height:0;opacity:0}to{height:var(--at-slot-height);opacity:1}}
+@media(prefers-reduced-motion:no-preference){.at-pack .at-collection-card,.at-pack .at-collection-card__actions{transition:box-shadow 150ms ease,transform 150ms ease,opacity 120ms ease}.at-pack .at-collection-card:hover{box-shadow:0 5px 16px color-mix(in srgb, var(--foreground) 12%, transparent);transform:translateY(-1px)}}
+@media(hover:none){.at-pack .at-collection-card__actions{opacity:1;transform:none}}
+@media(max-width:720px){.at-pack .at-collection-board{display:grid;align-content:start;overflow:auto;scroll-snap-type:none}.at-pack .at-collection-board__column{width:100%;min-width:0;min-height:0}.at-pack .at-collection-board__cards{grid-template-columns:1fr}.at-pack .at-collection-card__actions{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.at-pack .at-collection-card,.at-pack .at-collection-card__actions{transition:none}}

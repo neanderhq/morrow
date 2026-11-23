@@ -1,0 +1,35 @@
+contract_version: 1
+id: morrow
+title: Morrow
+description: |
+  **A shared workspace for the first stages of recruiting.**
+
+  Morrow is a Greenhouse-inspired recruiting app. Manage jobs and a public careers page, accept PDF or DOCX applications, and review candidates with stages, notes, search and role-scoped access. Four staff roles share one workspace; resumes stay private in PostgreSQL and Admins can inspect the audit trail.
+
+  Explore three sample jobs, four fictional candidates and five applications. Invitations and password-reset links are delivered manually; no email provider is configured. A signed-out sole Admin needs support/database help for forgotten-password recovery. Browser-cookie submission throttling is evadable. Candidate/application deletion, interview scheduling, scorecards, tasks, offers, reports and external integrations are not included.
+category: People & HR
+best_for: Small recruiting teams managing jobs and candidate applications
+features:
+  - Admin, Recruiter, Hiring Manager and Interviewer roles
+  - Job drafts, public careers, publish, close and reopen
+  - PDF and DOCX applications with private resume downloads
+  - Candidate search, job and stage filters
+  - Per-application stages, history and team notes
+  - Admin audit with actor, date filters and pagination
+included:
+  - Morrow recruiting workspace and public careers pages
+  - PostgreSQL migrations and session authentication
+  - Fictional staff, jobs, candidates and sample PDF resumes
+  - Manual invitation and reset-link workflow
+thumbnail: .neander/thumbnail.png
+screenshots:
+  - .neander/screenshots/jobs.png
+  - .neander/screenshots/application.png
+  - .neander/screenshots/careers.png
+commands:
+  install: [pnpm, install, --frozen-lockfile]
+  check: [pnpm, run, check]
+  test: [pnpm, run, test]
+  verify: [pnpm, run, test:template]
+seed:
+  command: [pnpm, run, db:seed]

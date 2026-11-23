@@ -1,0 +1,29 @@
+.at-pack .at-framework__task-workspace{display:flex;min-width:0;min-height:0;flex:1;overflow:hidden}
+.at-pack .at-framework__task-main{display:flex;min-width:0;min-height:0;flex:1;flex-direction:column}
+.at-pack .at-framework__task-main .at-data-table .at-table{min-width:800px}
+.at-pack .at-task-assistant{display:flex;min-width:0;width:min(410px,38%);flex:0 0 min(410px,38%);flex-direction:column;border-left:1px solid var(--at-border);background:var(--at-surface);animation:at-task-panel-in 180ms ease-out}
+.at-pack .at-task-assistant__head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:49px;padding:0 12px;border-bottom:1px solid var(--at-border);font-size:var(--at-control-font)}
+.at-pack .at-task-assistant__head>strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.at-pack .at-task-assistant__head-actions{display:flex;align-items:center;gap:1px;flex:none}
+.at-pack .at-task-assistant__head-actions .at-block-button{width:26px;height:26px;padding:0;justify-content:center;border:0;box-shadow:none}
+.at-pack .at-task-assistant__head-actions .at-block-button[aria-pressed="true"]{color:var(--at-accent)}
+.at-pack .at-task-assistant__body{min-height:0;flex:1;overflow:auto;padding:14px}
+.at-pack .at-task-assistant__question{width:max-content;max-width:90%;margin:0 0 28px auto;padding:9px 11px;border-radius:10px;background:var(--at-subtle);font-size:var(--at-control-font)}
+.at-pack .at-task-assistant__answer{font-size:var(--at-control-font);line-height:1.55}
+.at-pack .at-task-assistant__answer p{margin:9px 0 18px}
+.at-pack .at-task-assistant__source,.at-pack .at-task-assistant__empty{color:var(--at-muted);font-size:12px}
+.at-pack .at-task-assistant__answer h2,.at-pack .at-task-assistant__history h2{margin:14px 0 8px;font-size:var(--at-control-font);font-weight:600}
+.at-pack .at-task-assistant__card{margin-bottom:8px;padding:10px;border:1px solid var(--at-border);border-radius:10px;background:var(--at-surface)}
+.at-pack .at-task-assistant__card>.at-block-check{font-weight:500}
+.at-pack .at-task-assistant__card>div{display:flex;gap:8px;margin:7px 0 0 26px;color:var(--at-muted);font-size:11px;flex-wrap:wrap}
+.at-pack .at-task-assistant__history button{display:block;width:100%;padding:8px 0;border:0;border-bottom:1px solid var(--at-border);background:none;color:var(--at-text);text-align:left;font:inherit;cursor:pointer}
+.at-pack .at-task-assistant__composer{display:flex;align-items:flex-end;gap:8px;min-height:96px;margin:8px;padding:9px;border:1px solid var(--at-accent);border-radius:10px}
+.at-pack .at-task-assistant__composer textarea{min-height:65px;flex:1;padding:0;border:0;box-shadow:none;resize:vertical;font-size:var(--at-control-font)}
+.at-pack .at-task-assistant__composer .at-block-button{width:28px;height:28px;flex:none;padding:0;justify-content:center}
+.at-pack .at-task-assistant__composer .at-block-button svg{transform:rotate(-90deg)}
+.at-pack .at-task-assistant>.at-notice{margin:0 8px 8px}
+.at-pack .at-filter-toolbar__trailing{display:flex;align-items:center;gap:7px;margin-left:auto}
+@keyframes at-task-panel-in{from{opacity:.65;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@media(max-width:1050px){.at-pack .at-task-assistant{width:min(380px,45%);flex-basis:min(380px,45%)}}
+@media(max-width:720px){.at-pack .at-task-assistant{position:fixed;z-index:52;inset:0 0 0 auto;width:min(410px,100vw);height:100dvh;box-shadow:-10px 0 30px color-mix(in srgb, var(--foreground) 12%, transparent);flex-basis:auto}.at-pack .at-filter-toolbar__trailing .at-block-button:not(.at-block-button--primary)>span{display:none}.at-pack .at-filter-toolbar__trailing .at-block-button:not(.at-block-button--primary){width:32px;padding:0;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.at-pack .at-task-assistant{animation:none}}
