@@ -93,7 +93,11 @@ export async function checkBrowserJourneys(browser, admin, origin, jobId) {
     auditRefresh.resolve();
 
     const job = page.locator('[data-slot="card"]').filter({ has: page.getByRole('heading', { name: longJob, exact: true }) });
-    await job.getByRole('button', { name: 'Publish' }).click();
+    const [published] = await Promise.all([
+      page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname.endsWith('/status')),
+      job.getByRole('button', { name: 'Publish' }).click(),
+    ]);
+    assert.equal(published.status(), 200);
     const applicant = await publicContext.newPage();
     await applicant.goto(origin + '/careers');
     await applicant.getByRole('heading', { name: longJob, exact: true }).waitFor();
