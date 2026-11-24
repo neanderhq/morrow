@@ -52,11 +52,13 @@ export function JobManager({ role }: { role: StaffRole }) {
   const editorAlert = useRef<HTMLParagraphElement>(null);
   const createTrigger = useRef<HTMLButtonElement>(null);
   const editorTrigger = useRef<HTMLButtonElement | null>(null);
+  const jobsRequest = useRef(0);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [pendingJob, setPendingJob] = useState("");
 
   const loadJobs = useCallback(async (showLoading = true) => {
+    const request = ++jobsRequest.current;
     if (showLoading) setLoading(true);
     setError("");
     const query = filter === "all" ? "" : `?status=${filter}`;
@@ -64,11 +66,11 @@ export function JobManager({ role }: { role: StaffRole }) {
       const response = await fetch(`/api/jobs${query}`, { cache: "no-store" });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Jobs could not be loaded.");
-      setJobs(data.jobs);
+      if (request === jobsRequest.current) setJobs(data.jobs);
     } catch (loadError) {
-      setError(loadError instanceof Error ? loadError.message : "Jobs could not be loaded.");
+      if (request === jobsRequest.current) setError(loadError instanceof Error ? loadError.message : "Jobs could not be loaded.");
     } finally {
-      setLoading(false);
+      if (request === jobsRequest.current) setLoading(false);
     }
   }, [filter]);
 
@@ -123,22 +125,25 @@ export function JobManager({ role }: { role: StaffRole }) {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Job could not be saved.");
-      setDraft(null);
-      if (!draft.id && filter !== "all" && filter !== "draft") {
-        setFilter("draft");
-      } else {
-        await loadJobs(false);
-      }
-      setMessage(draft.id ? "Job changes saved." : "Draft created.");
-      if (role === "admin") {
-        await fetch("/api/audit", { cache: "no-store" }).then(async (auditResponse) => {
-          if (auditResponse.ok) setEvents((await auditResponse.json()).events);
-        }).catch(() => setError("The audit trail could not be refreshed."));
-      }
     } catch (saveError) {
       setEditorError(saveError instanceof Error ? saveError.message : "Job could not be saved.");
+      return;
     } finally {
       setSaving(false);
+    }
+
+    setDraft(null);
+    setMessage(draft.id ? "Job changes saved." : "Draft created.");
+    if (!draft.id && filter !== "all" && filter !== "draft") {
+      setFilter("draft");
+    } else {
+      void loadJobs(false);
+    }
+    if (role === "admin") {
+      void fetch("/api/audit", { cache: "no-store" }).then(async (auditResponse) => {
+        if (!auditResponse.ok) throw new Error();
+        setEvents((await auditResponse.json()).events);
+      }).catch(() => setError("The audit trail could not be refreshed."));
     }
   }
 

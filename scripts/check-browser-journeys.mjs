@@ -23,6 +23,7 @@ export async function checkBrowserJourneys(browser, admin, origin, jobId) {
   const viewport = { width: 375, height: 900 };
   const staff = await browser.newContext({ viewport, storageState: await admin.storageState(), reducedMotion: 'reduce' });
   const publicContext = await browser.newContext({ viewport });
+  const auditRefresh = Promise.withResolvers();
   try {
     const page = await staff.newPage();
     await page.goto(origin + '/staff');
@@ -67,7 +68,15 @@ export async function checkBrowserJourneys(browser, admin, origin, jobId) {
     await editor.getByLabel('Location').fill('Remote');
     await editor.getByLabel('Hiring manager', { exact: true }).selectOption({ label: longName + ' (' + longEmail + ')' });
     await editor.getByLabel('Description').fill('A fictional opening for the verification workspace.');
-    await submitJob.click();
+    const auditUrl = origin + '/api/audit';
+    await page.route(auditUrl, async route => {
+      await auditRefresh.promise;
+      await route.continue();
+    });
+    await Promise.all([
+      page.waitForRequest(auditUrl),
+      submitJob.click(),
+    ]);
     await page.getByRole('status').filter({ hasText: 'Draft created.' }).waitFor();
     assert.equal(await page.getByLabel('Filter by status').inputValue(), 'draft');
     const editButton = page.getByRole('button', { name: 'Edit ' + longJob, exact: true });
@@ -77,9 +86,11 @@ export async function checkBrowserJourneys(browser, admin, origin, jobId) {
     const edit = page.getByRole('dialog', { name: 'Edit job', exact: true });
     await edit.getByLabel('Job title').waitFor();
     assert.equal(await edit.getByLabel('Job title').inputValue(), longJob);
+    await page.waitForFunction(() => document.activeElement?.id === 'job-title');
     await page.keyboard.press('Escape');
     await edit.waitFor({ state: 'hidden' });
     await page.waitForFunction(name => document.activeElement?.getAttribute('aria-label') === name, 'Edit ' + longJob);
+    auditRefresh.resolve();
 
     const job = page.locator('[data-slot="card"]').filter({ has: page.getByRole('heading', { name: longJob, exact: true }) });
     await job.getByRole('button', { name: 'Publish' }).click();
@@ -117,6 +128,7 @@ export async function checkBrowserJourneys(browser, admin, origin, jobId) {
     assert.equal(applications[0].jobId, jobId);
     console.log('PASS: Morrow phone layouts, workspace navigation, keyboard job editor, draft save, and accessible resume correction.');
   } finally {
+    auditRefresh.resolve();
     await staff.close();
     await publicContext.close();
   }
