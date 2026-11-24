@@ -21,8 +21,9 @@ and builds standalone output. Build and health require no application credential
   and Docker bases.
 
 `pnpm test:production` and `pnpm test:template` use the same built-image smoke suite.
-CI supplies synthetic secrets and Chromium. Preserve app-specific integration
-coverage rather than replacing it with generic route assertions.
+CI supplies synthetic secrets and Chromium. The built-image suite also checks
+long staff and job labels at 375 px, job editor focus and draft creation, and
+resume error recovery through the public application form.
 
 ## Isolated runtime checks
 

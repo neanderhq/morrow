@@ -8,6 +8,7 @@ import { sameOrigin } from "../../../../../server/http";
 import { applicationSubmissionClientKey, consumeApplicationSubmission } from "../../../../../server/application-rate-limit";
 
 const response = (error: string, status: number) => Response.json({ error }, { status });
+const resumeError = (error: string) => Response.json({ error, field: "resume" }, { status: 400 });
 type ApplyResult = { ok: true; id: string } | { ok: false; error: string; status: 404 | 409 | 410 };
 
 export async function POST(request: Request, context: { params: Promise<{ id: string }> }) {
@@ -38,12 +39,12 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
   if (phone.length > 50) return response("Phone number must be 50 characters or fewer.", 400);
   if (!validWebUrl(portfolioUrl)) return response("Enter a valid LinkedIn or portfolio link starting with http:// or https://.", 400);
   if (coverNote.length > 2000) return response("Cover note must be 2,000 characters or fewer.", 400);
-  if (!file || typeof file === "string" || typeof file.arrayBuffer !== "function") return response("Choose a PDF or DOCX resume file.", 400);
-  if (file.size === 0) return response("Choose a resume file; the selected file is empty.", 400);
-  if (file.size > MAX_RESUME_BYTES) return response("Resume must be 5 MB or smaller.", 400);
+  if (!file || typeof file === "string" || typeof file.arrayBuffer !== "function") return resumeError("Choose a PDF or DOCX resume file.");
+  if (file.size === 0) return resumeError("Choose a resume file; the selected file is empty.");
+  if (file.size > MAX_RESUME_BYTES) return resumeError("Resume must be 5 MB or smaller.");
   const fileBytes = Buffer.from(await file.arrayBuffer());
   const validation = validateResumeBytes(fileBytes);
-  if (!validation.ok) return response(validation.error, 400);
+  if (!validation.ok) return resumeError(validation.error);
   const limit = await consumeApplicationSubmission(clientKey);
   if (!limit.accepted) {
     return Response.json({ error: "Too many applications from this connection. Please wait before trying again." }, {

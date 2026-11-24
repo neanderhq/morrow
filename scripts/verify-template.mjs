@@ -10,6 +10,7 @@ import { setTimeout as delay } from 'node:timers/promises';
 import { chromium } from 'playwright';
 import pg from 'pg';
 import { makePdf, makeDocx } from './fixtures/resume.mjs';
+import { checkBrowserJourneys } from './check-browser-journeys.mjs';
 
 const exec = promisify(execFile);
 const JOB = 'b1000000-0000-4000-8000-000000000001';
@@ -133,6 +134,7 @@ async function main() {
       });
       assert.equal(limited.status(), attempt < 3 ? 401 : 429);
     }
+    await checkBrowserJourneys(browser, context, origin.origin, JOB);
     await context.close(); await anonymous.close(); await browser.close(); browser = undefined;
     const integrationEnv = { ...process.env, PHASE2_ADMIN_EMAIL: 'admin@morrow.test', PHASE2_ADMIN_PASSWORD: password, PHASE3_ADMIN_EMAIL: 'admin@morrow.test', PHASE3_ADMIN_PASSWORD: password };
     await run(process.execPath, ['scripts/check-phase2.mjs', origin.origin], { env: integrationEnv });
