@@ -15,7 +15,11 @@ class DeploymentExamplesTests(unittest.TestCase):
     def test_installed_app_recipe_declares_database_and_email_auth(self):
         metadata = yaml.safe_load((ROOT / '.neander/compose.yaml').read_text())['x-neander']
         requirements = {item['name']: item for item in metadata['environment']}
-        self.assertEqual(set(requirements), {'DATABASE_URL', 'BETTER_AUTH_URL', 'BETTER_AUTH_SECRET', 'DEMO_PASSWORD'})
+        self.assertEqual(set(requirements), {'DATABASE_URL', 'BETTER_AUTH_URL', 'BETTER_AUTH_SECRET', 'DEMO_PASSWORD', 'MORROW_RESEND_API_KEY', 'MORROW_EMAIL_FROM'})
+        for name in ('MORROW_RESEND_API_KEY', 'MORROW_EMAIL_FROM'):
+            self.assertIs(requirements[name]['required'], False)
+            self.assertEqual(requirements[name]['source'], 'user')
+            self.assertIsNone(requirements[name]['provider'])
         self.assertEqual(metadata['migration'], 'nextjs-drizzle')
         self.assertEqual(metadata['ingress']['root_probe'], '/api/health')
         self.assertEqual(requirements['DATABASE_URL']['provider'], 'Neon')

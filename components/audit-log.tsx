@@ -42,6 +42,14 @@ const actionLabels: Record<AuditAction, string> = {
   "application.stage_changed": "Application stage changed",
   "application.note_added": "Application note added",
   "application.note_deleted": "Application note deleted",
+  "interview.scheduled": "Interview scheduled",
+  "interview.rescheduled": "Interview rescheduled",
+  "interview.cancelled": "Interview cancelled",
+  "application.rejection_email_prepared": "Rejection email prepared",
+  "application.rejection_email_accepted": "Rejection email accepted by provider",
+  "application.rejection_email_failed": "Rejection email failed",
+  "application.rejection_email_unknown": "Rejection email outcome uncertain",
+  "application.rejection_email_cancelled": "Rejection email cancelled",
 };
 
 function detailText(event: AuditEvent) {

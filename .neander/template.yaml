@@ -2,27 +2,37 @@ contract_version: 1
 id: morrow
 title: Morrow
 description: |
-  **A shared workspace for the first stages of recruiting.**
+  **A shared recruiting workspace for small hiring teams.**
 
-  Morrow is a Greenhouse-inspired recruiting app. Manage jobs and a public careers page, accept PDF or DOCX applications, and review candidates with stages, notes, search and role-scoped access. Four staff roles share one workspace; resumes stay private in PostgreSQL and Admins can inspect the audit trail.
+  Publish jobs to a public careers page, accept PDF and DOCX applications, and review candidates through role-scoped stages, notes, and audit history. Private resumes are stored in PostgreSQL.
 
-  Explore three sample jobs, four fictional candidates and five applications. Invitations and password-reset links are delivered manually; no email provider is configured. A signed-out sole Admin needs support/database help for forgotten-password recovery. Browser-cookie submission throttling is evadable. Candidate/application deletion, interview scheduling, scorecards, tasks, offers, reports and external integrations are not included.
+  Assign versioned interview scorecards, record agreed interview times with a time zone, and copy details for manual sharing. Recruiters can prepare a rejection for one application and optionally send it with a verified Resend sender.
+
+  The sample workspace uses fictional data. Staff invitations and password reset links are shared manually.
 category: People & HR
-best_for: Small recruiting teams managing jobs and candidate applications
+best_for: Small recruiting teams managing applications and interviews
 features:
   - Admin, Recruiter, Hiring Manager and Interviewer roles
   - Job drafts, public careers, publish, close and reopen
   - PDF and DOCX applications with private resume downloads
   - Candidate search, job and stage filters
   - Per-application stages, history and team notes
+  - Versioned interview rubrics, private drafts and submitted scorecards
+  - Manual interviews with time zones, rescheduling, cancellation and copyable details
+  - Optional application-specific rejection email with provider status
   - Admin audit with actor, date filters and pagination
 included:
   - Morrow recruiting workspace and public careers pages
   - PostgreSQL migrations and session authentication
   - Fictional staff, jobs, candidates and sample PDF resumes
   - Manual invitation and reset-link workflow
+  - Interview scorecards and manual scheduling
+  - Rejection email preview and optional Resend sender configuration
 thumbnail: .neander/thumbnail.png
 screenshots:
+  - .neander/screenshots/interview-scorecards.png
+  - .neander/screenshots/manual-interviews.png
+  - .neander/screenshots/rejection-email.png
   - .neander/screenshots/jobs.png
   - .neander/screenshots/application.png
   - .neander/screenshots/careers.png

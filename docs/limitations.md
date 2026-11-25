@@ -7,9 +7,11 @@ notes, search/filters and actor/time audit. Historical guides call its delivered
 increments Stages 1–4; these are not later product phases. Placeholder schema
 tables do not establish implemented features.
 
-Interview scheduling/scorecards, tasks/reminders, offers/approvals,
-reporting/CSV/retention and Google/Microsoft integrations are not implemented.
-The template requires no additional paid service, provider or delivery account.
+Structured interview feedback and manual scheduling are available in application detail.
+Candidate rejection email requires an optional verified Resend sender.
+The template otherwise requires no delivery account. See [recruiting workflows](recruiting-workflows.md).
+Tasks and reminders, offers and approvals, reporting, CSV export, retention and
+Google or Microsoft calendar integrations remain outside scope.
 
 ## Accounts and recovery
 

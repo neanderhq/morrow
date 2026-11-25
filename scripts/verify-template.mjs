@@ -11,6 +11,8 @@ import { chromium } from 'playwright';
 import pg from 'pg';
 import { makePdf, makeDocx } from './fixtures/resume.mjs';
 import { checkBrowserJourneys } from './check-browser-journeys.mjs';
+import { checkNextRecruiting } from './check-next-recruiting.mjs';
+import { checkRejectionDelivery, controlledEmailProvider, fixtureCredential, fixturePort, fixtureSender } from './check-rejection-delivery.mjs';
 
 const exec = promisify(execFile);
 const JOB = 'b1000000-0000-4000-8000-000000000001';
@@ -39,11 +41,11 @@ async function main() {
     }
     throw new Error('Morrow production image did not become ready');
   }
-  async function start(containerName, url, connection) {
+  async function start(containerName, url, connection, extraEnvironment = "") {
     const runtimeDb = new URL(connection);
     if (process.platform === 'darwin') runtimeDb.hostname = 'host.docker.internal';
     const file = join(directory, `${containerName}.env`);
-    await writeFile(file, `DATABASE_URL=${runtimeDb.href}\nBETTER_AUTH_URL=${url}\nBETTER_AUTH_SECRET=${secret}\n`, { mode: 0o644 });
+    await writeFile(file, `DATABASE_URL=${runtimeDb.href}\nBETTER_AUTH_URL=${url}\nBETTER_AUTH_SECRET=${secret}\n${extraEnvironment}`, { mode: 0o644 });
     const port = new URL(url).port || 80;
     const network = process.platform === 'linux' ? ['--network', 'host', '--env', `PORT=${port}`] : ['--publish', `127.0.0.1:${port}:8080`];
     await exec('docker', ['run', '--detach', '--name', containerName, '--mount', `type=bind,src=${file},dst=/run/secrets/neander_environment,readonly`, ...network, image], { timeout: 60000 });
@@ -135,10 +137,45 @@ async function main() {
       assert.equal(limited.status(), attempt < 3 ? 401 : 429);
     }
     await checkBrowserJourneys(browser, context, origin.origin, JOB);
-    await context.close(); await anonymous.close(); await browser.close(); browser = undefined;
+    await anonymous.close();
     const integrationEnv = { ...process.env, PHASE2_ADMIN_EMAIL: 'admin@morrow.test', PHASE2_ADMIN_PASSWORD: password, PHASE3_ADMIN_EMAIL: 'admin@morrow.test', PHASE3_ADMIN_PASSWORD: password };
     await run(process.execPath, ['scripts/check-phase2.mjs', origin.origin], { env: integrationEnv });
     await run(process.execPath, ['scripts/check-phase3.mjs', origin.origin], { env: integrationEnv });
+    const restart = async () => {
+      await exec('docker', ['restart', name], { timeout: 60000 });
+      await ready(origin.origin);
+    };
+    const featureCaptures = capture ? join(capture, 'next-recruiting') : null;
+    await checkNextRecruiting(browser, context, origin.origin, password, featureCaptures, db, restart);
+    await context.close();
+
+    const emailOrigin = new URL(origin);
+    emailOrigin.port = String(Number(origin.port || 80) + 2);
+    const emailName = name + '-email';
+    const fixtureEndpoint = 'http://127.0.0.1:' + fixturePort;
+    const fixtureEnv = [
+      'MORROW_TEST_EMAIL_ENDPOINT=' + fixtureEndpoint + '/emails',
+      'MORROW_RESEND_API_KEY=' + fixtureCredential,
+      'MORROW_EMAIL_FROM=' + fixtureSender, '',
+    ].join('\n');
+    await start(emailName, emailOrigin.origin, databaseUrl, fixtureEnv);
+    await exec('docker', ['exec', '-d', emailName, 'node', '-e', ...controlledEmailProvider]);
+    const providerAttempts = async () => {
+      const { stdout } = await exec('docker', ['exec', emailName, 'node', '-e',
+        'fetch(process.argv[1]).then(r => r.text()).then(console.log)', fixtureEndpoint + '/stats']);
+      return JSON.parse(stdout);
+    };
+    for (let i = 0; i < 20; i++) {
+      try { await providerAttempts(); break; } catch (error) {
+        if (i === 19) throw error;
+        await delay(250);
+      }
+    }
+    await checkRejectionDelivery(browser, emailOrigin.origin, password, featureCaptures, providerAttempts, async () => {
+      await exec('docker', ['restart', emailName], { timeout: 60000 });
+      await ready(emailOrigin.origin);
+    });
+    await browser.close(); browser = undefined;
     // Exercise first-workspace bootstrap in a separate disposable database, retaining all phase1 assertions.
     const bootstrapName = `morrow_phase1_${randomUUID().replaceAll('-', '')}`;
     const bootstrapUrl = new URL(databaseUrl); bootstrapUrl.pathname = `/${bootstrapName}`;

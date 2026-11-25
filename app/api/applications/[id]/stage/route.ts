@@ -3,7 +3,8 @@ import { getMember } from "../../../../../server/access";
 import { getDb } from "../../../../../server/db";
 import { canChangeApplicationStage, isApplicationStage } from "../../../../../server/policy";
 import { canAccessApplication, isUuid } from "../../../../../server/recruiting";
-import { applicationStageHistory, applications, auditEvents } from "../../../../../server/schema";
+import { applications } from "../../../../../server/schema";
+import { recordApplicationStage } from "../../../../../server/application-stage";
 import { sameOrigin, unauthorized } from "../../../../../server/http";
 
 export async function PATCH(request: Request, context: { params: Promise<{ id: string }> }) {
@@ -30,23 +31,9 @@ export async function PATCH(request: Request, context: { params: Promise<{ id: s
       .where(and(eq(applications.id, id), eq(applications.workspaceId, member.workspaceId))).limit(1);
     if (!application) return { status: 404 as const, error: "Application not found." };
     if (application.stage === stage) return { status: 200 as const, stage: application.stage, changed: false as const };
-    await tx.update(applications).set({ stage, updatedAt: new Date() })
-      .where(and(eq(applications.id, id), eq(applications.workspaceId, member.workspaceId)));
-    const [history] = await tx.insert(applicationStageHistory).values({
-      workspaceId: member.workspaceId,
-      applicationId: id,
-      fromStage: application.stage,
-      toStage: stage,
-      actorUserId: member.userId,
-    }).returning({ id: applicationStageHistory.id, createdAt: applicationStageHistory.createdAt });
-    await tx.insert(auditEvents).values({
-      workspaceId: member.workspaceId,
-      actorUserId: member.userId,
-      action: "application.stage_changed",
-      entityType: "application",
-      entityId: id,
-      details: { from: application.stage, to: stage },
-    });
+    const history = await recordApplicationStage(tx, {
+      id, workspaceId: member.workspaceId, actorUserId: member.userId, currentStage: application.stage,
+    }, stage);
     return { status: 200 as const, stage, changed: true as const, history };
   });
   if (result.status !== 200) return Response.json({ error: result.error }, { status: result.status });
