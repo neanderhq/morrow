@@ -164,7 +164,9 @@ test("application submissions use independent signed browser identities and reje
   assert.equal(requestCounts.get(secondKey), 1);
 
   const missingIdentity = new Headers({ "x-forwarded-for": "203.0.113.9", "x-real-ip": "203.0.113.9", "cf-connecting-ip": "203.0.113.9" });
-  const invalidIdentity = new Headers({ cookie: `${APPLICATION_CLIENT_ID_COOKIE}=${firstIdentity.slice(0, -1)}0` });
+  const tamperedIdentity = `${firstIdentity.slice(0, -1)}${firstIdentity.endsWith("0") ? "1" : "0"}`;
+  assert.notEqual(tamperedIdentity, firstIdentity);
+  const invalidIdentity = new Headers({ cookie: `${APPLICATION_CLIENT_ID_COOKIE}=${tamperedIdentity}` });
   assert.equal(applicationSubmissionClientKey(missingIdentity, secret), null);
   assert.equal(applicationSubmissionClientKey(invalidIdentity, secret), null);
   assert.equal(verifyApplicationClientIdentity(firstIdentity, "different-secret"), null);
