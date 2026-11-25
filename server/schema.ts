@@ -159,6 +159,30 @@ export const applicationStageHistory = pgTable("application_stage_history", {
   index("application_stage_history_workspace_application_idx").on(table.workspaceId, table.applicationId, table.createdAt),
 ]);
 
+export const rejectionEmails = pgTable("rejection_email", {
+  id: uuid("id").primaryKey(),
+  workspaceId: uuid("workspace_id").notNull().references(() => workspaces.id, { onDelete: "cascade" }),
+  applicationId: uuid("application_id").notNull(),
+  stageEventId: uuid("stage_event_id").notNull().references(() => applicationStageHistory.id, { onDelete: "cascade" }),
+  sender: text("sender").notNull(),
+  recipient: text("recipient").notNull(),
+  subject: text("subject").notNull(),
+  body: text("body").notNull(),
+  status: text("status").default("queued").notNull(),
+  attempts: integer("attempts").default(0).notNull(),
+  providerMessageId: text("provider_message_id"),
+  reason: text("reason"),
+  createdBy: text("created_by").notNull().references(() => user.id),
+  dispatchedBy: text("dispatched_by").references(() => user.id),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+}, (table) => [
+  unique("rejection_email_stage_unique").on(table.stageEventId),
+  foreignKey({ name: "rejection_email_application_fk", columns: [table.workspaceId, table.applicationId], foreignColumns: [applications.workspaceId, applications.id] }),
+  index("rejection_email_application_history_idx").on(table.workspaceId, table.applicationId, table.createdAt),
+  check("rejection_email_status_check", sql`${table.status} in ('queued', 'sending', 'accepted', 'failed', 'unknown', 'cancelled')`),
+]);
+
 export const applicationNotes = pgTable("application_note", {
   id: uuid("id").defaultRandom().primaryKey(),
   workspaceId: uuid("workspace_id").notNull().references(() => workspaces.id, { onDelete: "cascade" }),
@@ -183,12 +207,60 @@ export const auditEvents = pgTable("audit_event", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 }, (table) => [index("audit_event_workspace_created_idx").on(table.workspaceId, table.createdAt)]);
 
+export const jobInterviewRubrics = pgTable("job_interview_rubric", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  workspaceId: uuid("workspace_id").notNull().references(() => workspaces.id, { onDelete: "cascade" }),
+  jobId: uuid("job_id").notNull(),
+  version: integer("version").notNull(),
+  criteria: jsonb("criteria").$type<string[]>().notNull(),
+  createdBy: text("created_by").notNull().references(() => user.id),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+}, (table) => [
+  unique("job_interview_rubric_workspace_id_unique").on(table.workspaceId, table.id),
+  unique("job_interview_rubric_job_version_unique").on(table.workspaceId, table.jobId, table.version),
+  foreignKey({ name: "job_interview_rubric_job_fk", columns: [table.workspaceId, table.jobId], foreignColumns: [jobs.workspaceId, jobs.id] }),
+]);
+
+export const interviewReviewRounds = pgTable("interview_review_round", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  workspaceId: uuid("workspace_id").notNull().references(() => workspaces.id, { onDelete: "cascade" }),
+  applicationId: uuid("application_id").notNull(),
+  rubricId: uuid("rubric_id").notNull(),
+  createdBy: text("created_by").notNull().references(() => user.id),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+}, (table) => [
+  unique("interview_review_round_workspace_id_unique").on(table.workspaceId, table.id),
+  unique("interview_review_round_application_unique").on(table.workspaceId, table.applicationId),
+  foreignKey({ name: "interview_review_round_application_fk", columns: [table.workspaceId, table.applicationId], foreignColumns: [applications.workspaceId, applications.id] }),
+  foreignKey({ name: "interview_review_round_rubric_fk", columns: [table.workspaceId, table.rubricId], foreignColumns: [jobInterviewRubrics.workspaceId, jobInterviewRubrics.id] }),
+]);
+
+export const interviewFeedback = pgTable("interview_feedback", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  workspaceId: uuid("workspace_id").notNull().references(() => workspaces.id, { onDelete: "cascade" }),
+  roundId: uuid("round_id").notNull(),
+  interviewerId: text("interviewer_id").notNull(),
+  revision: integer("revision").default(0).notNull(),
+  ratings: jsonb("ratings").$type<(number | null)[]>().default([]).notNull(),
+  notes: text("notes").default("").notNull(),
+  recommendation: text("recommendation").default("").notNull(),
+  submittedAt: timestamp("submitted_at", { withTimezone: true }),
+}, (table) => [
+  unique("interview_feedback_round_interviewer_unique").on(table.workspaceId, table.roundId, table.interviewerId),
+  foreignKey({ name: "interview_feedback_round_fk", columns: [table.workspaceId, table.roundId], foreignColumns: [interviewReviewRounds.workspaceId, interviewReviewRounds.id] }),
+  foreignKey({ name: "interview_feedback_interviewer_fk", columns: [table.workspaceId, table.interviewerId], foreignColumns: [memberships.workspaceId, memberships.userId] }),
+]);
+
 export const interviews = pgTable("interview", {
   id: uuid("id").defaultRandom().primaryKey(),
   workspaceId: uuid("workspace_id").notNull().references(() => workspaces.id, { onDelete: "cascade" }),
   applicationId: uuid("application_id").notNull(),
   interviewerId: text("interviewer_id").notNull().references(() => user.id),
   scheduledAt: timestamp("scheduled_at", { withTimezone: true }).notNull(),
+  endsAt: timestamp("ends_at", { withTimezone: true }),
+  timeZone: text("time_zone").default("UTC").notNull(),
+  location: text("location").default("").notNull(),
+  revision: integer("revision").default(0).notNull(),
   status: text("status").default("scheduled").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 }, (table) => [

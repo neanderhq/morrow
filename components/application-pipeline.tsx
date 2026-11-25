@@ -69,6 +69,7 @@ export function ApplicationPipeline({
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Stage could not be changed.");
       setStage(data.stage);
+      if (data.changed) window.dispatchEvent(new CustomEvent("morrow:application-stage-changed", { detail: applicationId }));
       if (data.changed && data.history) setHistory((current) => [...current, { ...data.history, fromStage: stage, toStage: data.stage, actorName: data.actorName ?? null }]);
     } catch (saveError) {
       setError(saveError instanceof Error ? saveError.message : "Stage could not be changed.");

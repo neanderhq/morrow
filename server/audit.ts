@@ -14,6 +14,14 @@ export const auditActions = [
   "application.stage_changed",
   "application.note_added",
   "application.note_deleted",
+  "interview.scheduled",
+  "interview.rescheduled",
+  "interview.cancelled",
+  "application.rejection_email_prepared",
+  "application.rejection_email_accepted",
+  "application.rejection_email_failed",
+  "application.rejection_email_unknown",
+  "application.rejection_email_cancelled",
 ] as const;
 
 export type AuditAction = (typeof auditActions)[number];

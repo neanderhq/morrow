@@ -17,10 +17,11 @@ The MIT-licensed app is independent of Greenhouse and has no affiliation with it
 - Candidate/application search and filters, per-application stages, stage history
   and staff notes.
 - Admin audit activity with actor/time, filters and pagination.
+- Versioned interview scorecards, manual scheduling, and optional rejection email.
+  See [recruiting workflows](docs/recruiting-workflows.md).
 
-This is the delivered recruiting Phase 1. Interview scheduling, scorecards,
-tasks/reminders, offers/approvals, reporting/CSV/retention and external calendar or
-email-provider integrations are not implemented. See [limitations](docs/limitations.md)
+Tasks, reminders, offers, approvals, reporting, CSV export, retention and
+external calendar integrations remain outside scope. See [limitations](docs/limitations.md)
 before deploying for real applicants.
 
 ## Run locally

@@ -36,6 +36,27 @@
       "when": 1795200539091,
       "tag": "0004_reported_regressions",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1795602332945,
+      "tag": "0005_interview_scorecards",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1795602488398,
+      "tag": "0006_manual_interviews",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1795602671373,
+      "tag": "0007_candidate_rejection_emails",
+      "breakpoints": true
     }
   ]
 }
